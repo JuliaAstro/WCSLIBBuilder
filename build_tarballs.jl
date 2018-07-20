@@ -13,10 +13,14 @@ sources = [
 script = raw"""
 cd $WORKSPACE/srcdir
 cd wcslib-5.13/
+sed -i "s/AC_CANONICAL_BUILD/AC_CANONICAL_HOST/" configure.ac
+sed -i "s/^ARCH=.*/ARCH=\"$host\"/" configure.ac
+sed -i "s/darwin*/*darwin*/" configure.ac
+sed -i "s/build_os/host/" configure.ac
+autoconf
 ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils
 make
 make install
-
 """
 
 # These are the platforms we will build for by default, unless further
@@ -31,6 +35,7 @@ platforms = [
     Linux(:x86_64, :musl),
     Linux(:aarch64, :musl),
     Linux(:armv7l, :musl, :eabihf),
+    MacOS(:x86_64),
     FreeBSD(:x86_64)
 ]
 
