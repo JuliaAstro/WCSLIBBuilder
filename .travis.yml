@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for giordano/WCSLIBBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: WhUsilphROioim1gScMLMbnMRIUkRV/ohRCTuXiFg13cqs1fQcFrgXlrsIbl0xS+twg4BrSxs3FySeX+MCeSOiymJnSAIaL0zEcXLP2mLCtl0NvsL3YB1H6HktvD4gLMrzF/xth1i9wJJfgiUPuTvRNO9J1dsaemEPmzz+qaLimj75Arc1KaMj9aAubEA+V1dYItYuTx3dOHAke7SS9q8svSiZ7hxD/4h+8TGP5cTxtTXZxuT+F3UBdxyKUzqPZJUvCL51qk2keT3tZIzgRxP1aNBDR5l/xnl1CYV/yVAtfHGhffXIjfeL4fLPNuk5w05sm8jEJTte41HGSPcA/HAVQX8ZooRq88ZyCMQVttPMQLeoNs4QmMgUNMxI4cDwofctmwSXsvR4To5LNEZheKv6pt7nduKFmOROA2weRmLh4fkvOaocYamdxhA51TqE+HY8/4iuB/PFbyZ4j/FCCV55A3LFfydOB2FLktsUgJh+dtEhDTlQNVw/ZFkLSjynLKHFF3QQ6SRw/p5xECGsNGOxUchE3DBaLSbAQxEZwOUdbQNYnq8KyJXHuOJFyHsdk2aEo6AJyqQhF9nh3tagKOCQ2Vdf5WOErwdsSHT/nETUt9be5Rt5Fsb2CaRgnPdKdvzA6hhfqSsRhQxb4EQXeIhE0CrMAv8J2CDUa8/ZhAw0s=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: giordano/WCSLIBBuilder
+        tags: true
