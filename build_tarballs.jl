@@ -18,7 +18,11 @@ cd wcslib-5.13/
 sed -i "s/AC_CANONICAL_BUILD/AC_CANONICAL_HOST/; s/build_cpu/host_cpu/; s/build_os/host_os/" configure.ac
 wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 autoconf
-./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils
+if [[ "${target}" == *mingw* ]]; then
+    ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
+else
+    ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils
+fi
 make
 make install
 """
@@ -36,7 +40,9 @@ platforms = [
     Linux(:aarch64, :musl),
     Linux(:armv7l, :musl, :eabihf),
     MacOS(:x86_64),
-    FreeBSD(:x86_64)
+    FreeBSD(:x86_64),
+    Windows(:i686),
+    Windows(:x86_64)
 ]
 
 # The products that we will ensure are always built
