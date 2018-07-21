@@ -4,17 +4,17 @@ using BinaryBuilder
 
 # Collection of sources required to build WCS
 name = "WCS"
-version = v"5.13"
+version = v"5.18"
 sources = [
-    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.13.tar.bz2" =>
-    "d6983e8bc5997e625e66cc3b8590745231f1761437d533ad4b99a015eeb9b4e7",
+    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.18.tar.bz2" =>
+    "b693fbf14f2553507bc0c72bca531f23c59885be8f7d3c3cb889a5349129509a"
 
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd wcslib-5.13/
+cd wcslib-5.18/
 sed -i "s/AC_CANONICAL_BUILD/AC_CANONICAL_HOST/; s/build_cpu/host_cpu/; s/build_os/host_os/" configure.ac
 wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 autoconf
