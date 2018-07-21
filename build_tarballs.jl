@@ -14,7 +14,7 @@ script = raw"""
 cd $WORKSPACE/srcdir
 cd wcslib-5.13/
 sed -i "s/AC_CANONICAL_BUILD/AC_CANONICAL_HOST/; s/build_cpu/host_cpu/; s/build_os/host_os/" configure.ac
-wget -P config -O config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 autoconf
 ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils
 make
