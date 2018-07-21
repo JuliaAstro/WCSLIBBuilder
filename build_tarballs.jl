@@ -3,6 +3,8 @@
 using BinaryBuilder
 
 # Collection of sources required to build WCS
+name = "WCS"
+version = v"5.13"
 sources = [
     "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.13.tar.bz2" =>
     "d6983e8bc5997e625e66cc3b8590745231f1761437d533ad4b99a015eeb9b4e7",
@@ -48,5 +50,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "WCS", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
 
