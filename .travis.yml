@@ -36,5 +36,5 @@ deploy:
     file: products/*
     skip_cleanup: true
     on:
-        repo: giordano/WCSLIBBuilder
+        repo: JuliaAstro/WCSLIBBuilder
         tags: true
