@@ -4,18 +4,17 @@ using BinaryBuilder
 
 # Collection of sources required to build WCS
 name = "WCS"
-version = v"5.19"
+version = v"5.19.1"
 sources = [
-    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.19.tar.bz2" =>
-    "670cb0e8253100ba3e239a576f3bd7b0bf48488125eb056f60fef5e0c19ac90a"
+    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.19.1.tar.bz2" =>
+    "59b9f0e5a2c040773cc846c684d84c09b986c1393e97b378a41b92d9d3df0f98"
 
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd wcslib-5.19/
-wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+cd wcslib-5.19.1/
 if [[ "${target}" == *mingw* ]]; then
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
 else
