@@ -17,6 +17,15 @@ cd $WORKSPACE/srcdir
 cd wcslib-5.13/
 sed -i "s/AC_CANONICAL_BUILD/AC_CANONICAL_HOST/; s/build_cpu/host_cpu/; s/build_os/host_os/" configure.ac
 wget -O config/config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+patch configure.ac <<EOF
+240a241,246
+>   *mingw*)
+>     SHRLIB="libwcs.dll.\$LIBVER"
+>     SONAME="libwcs.dll.\$SHVER"
+>     SHRLD="\$SHRLD -shared -Wl,-h\\\$(SONAME)"
+>     SHRLN="libwcs.dll"
+>     ;;
+EOF
 autoconf
 if [[ "${target}" == *mingw* ]]; then
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
