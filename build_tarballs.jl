@@ -34,6 +34,13 @@ else
 fi
 make
 make install
+# On Windows, the shared library has to be in the bin/ directory.
+# BinaryBuilder would automatically move there the libwcs.dll file only,
+# but it's a symbolic link and would be a broken link after moving it.
+if [[ "${target}" == *mingw* ]]; then
+    mkdir -p ${prefix}/bin
+    mv ${prefix}/lib/libwcs.dll* ${prefix}/bin
+fi
 """
 
 # These are the platforms we will build for by default, unless further
