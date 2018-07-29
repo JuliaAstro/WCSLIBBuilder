@@ -14,7 +14,17 @@ sources = [
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd wcslib-5.19.1/
+cd wcslib-*
+patch configure.ac <<EOF
+240a241,246
+>   *mingw*)
+>     SHRLIB="libwcs.dll.\$LIBVER"
+>     SONAME="libwcs.dll.\$SHVER"
+>     SHRLD="\$SHRLD -shared -Wl,-h\\\$(SONAME)"
+>     SHRLN="libwcs.dll"
+>     ;;
+EOF
+autoconf
 if [[ "${target}" == *mingw* ]]; then
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
 else
