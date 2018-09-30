@@ -7,23 +7,14 @@ name = "WCS"
 version = v"5.19.1"
 sources = [
     "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.19.1.tar.bz2" =>
-    "59b9f0e5a2c040773cc846c684d84c09b986c1393e97b378a41b92d9d3df0f98"
-
+    "59b9f0e5a2c040773cc846c684d84c09b986c1393e97b378a41b92d9d3df0f98",
+    "./patches"
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
-cd $WORKSPACE/srcdir
-cd wcslib-*
-patch configure.ac <<EOF
-240a241,246
->   *mingw*)
->     SHRLIB="libwcs.dll.\$LIBVER"
->     SONAME="libwcs.dll.\$SHVER"
->     SHRLD="\$SHRLD -shared -Wl,-h\\\$(SONAME)"
->     SHRLN="libwcs.dll"
->     ;;
-EOF
+cd $WORKSPACE/srcdir/wcslib-*/
+patch -p1 < $WORKSPACE/srcdir/configure-mingw.patch
 autoconf
 if [[ "${target}" == *mingw* ]]; then
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
