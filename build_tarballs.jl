@@ -4,10 +4,10 @@ using BinaryBuilder
 
 # Collection of sources required to build WCS
 name = "WCS"
-version = v"5.19.1"
+version = v"5.20"
 sources = [
-    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.19.1.tar.bz2" =>
-    "59b9f0e5a2c040773cc846c684d84c09b986c1393e97b378a41b92d9d3df0f98",
+    "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-5.20.tar.bz2" =>
+    "0bc037db498cbd8e17ecaedd72fad15d6810ae885793882d5736f746f64c0fb1",
     "./patches"
 ]
 

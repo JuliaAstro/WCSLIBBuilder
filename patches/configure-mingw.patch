@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -239,6 +239,12 @@
+@@ -242,6 +242,12 @@
    SHRLD="\$(CC) \$(SHRFLAGS)"
  
    case "$host_os" in
