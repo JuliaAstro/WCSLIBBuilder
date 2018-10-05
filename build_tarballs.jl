@@ -14,9 +14,9 @@ sources = [
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir/wcslib-*/
-patch -p1 < $WORKSPACE/srcdir/configure-mingw.patch
-autoconf
 if [[ "${target}" == *mingw* ]]; then
+    patch -p1 < $WORKSPACE/srcdir/configure-mingw.patch
+    autoconf
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils CFLAGS=-DNO_OLDNAMES
 else
     ./configure --prefix=$prefix --host=$target --disable-fortran --without-cfitsio --without-pgplot --disable-utils
