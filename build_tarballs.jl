@@ -8,7 +8,7 @@ version = v"6.2.0"
 # Collection of sources required to build WCS
 sources = [
     "https://cache.julialang.org/ftp://ftp.atnf.csiro.au/pub/software/wcslib/wcslib-6.2.tar.bz2" =>
-    "0bc037db498cbd8e17ecaedd72fad15d6810ae885793882d5736f746f64c0fb1",
+    "bb4dfe242959bc4e5540890e0475754ad4a027dba971903dc4d82df8d564d805",
     "./patches"
 ]
 
